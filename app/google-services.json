@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "136684176851",
+    "firebase_url": "https://mycineforum-f4271.firebaseio.com",
+    "project_id": "mycineforum-f4271",
+    "storage_bucket": "mycineforum-f4271.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136684176851:android:bad5e8260da70439",
+        "android_client_info": {
+          "package_name": "com.example.lore_depa.mycineforum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136684176851-puls632bifsvi12q6tf7pllnj2oj38lk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lore_depa.mycineforum",
+            "certificate_hash": "25e3383b3b6db6eb1efde47f9b22898e16816326"
+          }
+        },
+        {
+          "client_id": "136684176851-vuo8u1ds6e1smc1g2pvbj1inidvm6j6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9_pEicBRC6jt3qDEuhhbPyRQj-6S42rE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136684176851-vuo8u1ds6e1smc1g2pvbj1inidvm6j6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

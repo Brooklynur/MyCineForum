@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyCineForum</string>
+    <string name="user_hint">Nickname</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Indirizzo mail</string>
+    <string name="iscrizione">Non risulti ancora iscritto!</string>
+</resources>
