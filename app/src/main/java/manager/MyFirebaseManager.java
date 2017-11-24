@@ -1,4 +1,4 @@
-package com.example.lore_depa.mycineforum;
+package manager;
 
 import android.text.TextUtils;
 import android.widget.TextView;

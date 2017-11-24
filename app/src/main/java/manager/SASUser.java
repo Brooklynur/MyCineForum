@@ -1,4 +1,4 @@
-package com.example.lore_depa.mycineforum;
+package manager;
 
 /**
  * Created by SSBS_SELECT on 22/11/2017.
