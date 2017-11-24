@@ -51,7 +51,7 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         final String  email = mailText.getText().toString();
-        String password = passwordText.getText().toString();
+        final String password = passwordText.getText().toString();
         final String nick = nickName.getText().toString();
 
         /*Questo metodo crea l'utenza vera e propria*/
@@ -59,11 +59,13 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(task.isSuccessful()){//verifico se l'iscrizione è andata a buon fine, scrivo i dati sul DB e comunico all'utente la creazione della sua utenza
-                    FBMan.insertUserData(nick, email);
                     Toast.makeText( SignInActivity.this, "Utenza creata", Toast.LENGTH_SHORT).show();
                     firebaseUser = mAuth.getCurrentUser();
+                    FBMan.insertUserCredential(firebaseUser, nick, email);
                     firebaseUser.sendEmailVerification();//invio email di verifica
-                    Intent intent = new Intent(SignInActivity.this , MainActivity.class );
+                    Intent intent = new Intent(SignInActivity.this , MainActivity.class);
+                    intent.putExtra("myMail", email);
+                    intent.putExtra("myPass", password);
                     startActivity(intent);
                     finish();
                 }else{

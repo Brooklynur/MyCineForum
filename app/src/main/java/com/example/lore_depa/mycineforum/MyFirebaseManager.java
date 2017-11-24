@@ -3,8 +3,13 @@ package com.example.lore_depa.mycineforum;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by SSBS_SELECT on 20/11/2017.
@@ -21,10 +26,11 @@ public class MyFirebaseManager {
     }
 
 
-    public void insertUserData(String nick , String mail){
-        mDbReference.child("user").child(nick).child("nick").setValue(nick); //Si deve ricostruire il path corretto per arrivare all'oggetto voluto per poi settarne il valore
-        mDbReference.child("user").child(nick).child("mail").setValue(mail);
+    public void insertUserCredential(FirebaseUser user , String nick , String mail){
+        mDbReference.child("user").child(user.getUid()).child("nick").setValue(nick); //Si deve ricostruire il path corretto per arrivare all'oggetto voluto per poi settarne il valore
+        mDbReference.child("user").child(user.getUid()).child("mail").setValue(mail);
     }
+
 
     public boolean checkCredenziali(TextView mailText, TextView passwordText, TextView nickName){
         boolean valid = true;

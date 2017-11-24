@@ -7,10 +7,11 @@
     tools:context="com.example.lore_depa.mycineforum.MembersActivity">
 
     <ListView
+        android:id="@+id/SASList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         tools:layout_height="match_parent"
-        tools:layout_width="match_parent"
         tools:layout_marginTop="0dp"
-        />
+        tools:layout_width="match_parent" />
 </android.support.constraint.ConstraintLayout>

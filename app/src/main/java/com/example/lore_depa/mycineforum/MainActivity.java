@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -38,8 +46,23 @@ public class MainActivity extends AppCompatActivity {
         if(user != null && !user.isEmailVerified()  ) {
             Toast.makeText(getApplicationContext(), "Email non verificata" , Toast.LENGTH_LONG).show(); //I Toast sono dei brevi messaggi che compaiono a schermo
         }else if( user != null && user.isEmailVerified() ){
-            Toast.makeText(getApplicationContext(), "Email verificata" , Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), user.getUid() , Toast.LENGTH_LONG).show();
         }
+
+        final DatabaseReference mDBReference = FirebaseDatabase.getInstance().getReference("user");
+
+        mDBReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
+                Log.v("UTENTE: ", currentUser.getNick());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void switchMainActivity(View v){
@@ -59,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.crediti:
-                //aprire pagina del sito che forse un giorno avremo
+                //aprire pagina del sito che forse un giorno avremo.com
                 Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_LONG ).show();
                 break;
             case R.id.LogOutText: /*Se clicca sul testo di logout*/
