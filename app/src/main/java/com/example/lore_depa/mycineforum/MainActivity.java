@@ -40,23 +40,9 @@ public class MainActivity extends AppCompatActivity {
         if(user != null && !user.isEmailVerified()  ) {
             Toast.makeText(getApplicationContext(), "Email non verificata" , Toast.LENGTH_LONG).show(); //I Toast sono dei brevi messaggi che compaiono a schermo
         }else if( user != null && user.isEmailVerified() ){
-            //Toast.makeText(getApplicationContext(), user.getUid() , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Email verificata" , Toast.LENGTH_LONG).show();
         }
 
-        final DatabaseReference mDBReference = FirebaseDatabase.getInstance().getReference("user");
-
-        mDBReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
-                Log.v("UTENTE: ", currentUser.getNick());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public void switchMainActivity(View v){
@@ -85,9 +71,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logOut(){ //Eseguo il logout
-        mAuth.signOut();
-        user = mAuth.getCurrentUser();
-        Toast.makeText(this, "Logout eseguito" , Toast.LENGTH_SHORT).show();
-        startText.setClickable(true);
+         if(user != null) {
+             mAuth.signOut();
+             user = mAuth.getCurrentUser();
+             Toast.makeText(this, "Logout eseguito", Toast.LENGTH_SHORT).show();
+             startText.setClickable(true);
+         }
     }
 }

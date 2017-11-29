@@ -44,12 +44,10 @@ public class MembersActivity extends AppCompatActivity {
 
         listViewSasUser = (ListView) findViewById(R.id.SASList);
         listSasUser = new ArrayList<>();
-        adapter = new ArrayAdapter<SASUser>(this, android.R.layout.simple_list_item_1, listSasUser);
-        listViewSasUser.setAdapter(adapter);
 
         mDBReference = FirebaseDatabase.getInstance().getReference("user");
 
-        mAuth.signInWithEmailAndPassword(getIntent().getStringExtra("myMail") , getIntent().getStringExtra("myPass")).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        /*mAuth.signInWithEmailAndPassword(getIntent().getStringExtra("myMail") , getIntent().getStringExtra("myPass")).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -58,55 +56,51 @@ public class MembersActivity extends AppCompatActivity {
                     Toast.makeText(MembersActivity.this , "Impossibile caricare" , Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
         mDBReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 listSasUser.clear();
-
-                for( DataSnapshot userSnapshot : dataSnapshot.getChildren() ){
-                    SASUser currentUser = userSnapshot.getValue(SASUser.class);
-                    listSasUser.add(currentUser);
+                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
+                listSasUser.add(currentUser);
+                if(listSasUser.size() > 0){
+                    adapter = new ArrayAdapter<SASUser>(MembersActivity.this, android.R.layout.simple_list_item_1, listSasUser);
+                    listViewSasUser.setAdapter(adapter);
                 }
-
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 listSasUser.clear();
-
-                for( DataSnapshot userSnapshot : dataSnapshot.getChildren() ){
-                    SASUser currentUser = userSnapshot.getValue(SASUser.class);
-                    listSasUser.add(currentUser);
+                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
+                listSasUser.add(currentUser);
+                if(listSasUser.size() > 0){
+                    adapter = new ArrayAdapter<SASUser>(MembersActivity.this, android.R.layout.simple_list_item_1, listSasUser);
+                    listViewSasUser.setAdapter(adapter);
                 }
-
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 listSasUser.clear();
-
-                for( DataSnapshot userSnapshot : dataSnapshot.getChildren() ){
-                    SASUser currentUser = userSnapshot.getValue(SASUser.class);
-                    listSasUser.add(currentUser);
+                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
+                listSasUser.add(currentUser);
+                if(listSasUser.size() > 0){
+                    adapter = new ArrayAdapter<SASUser>(MembersActivity.this, android.R.layout.simple_list_item_1, listSasUser);
+                    listViewSasUser.setAdapter(adapter);
                 }
-
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 listSasUser.clear();
-
-                for( DataSnapshot userSnapshot : dataSnapshot.getChildren() ){
-                    SASUser currentUser = userSnapshot.getValue(SASUser.class);
-                    listSasUser.add(currentUser);
+                SASUser currentUser = dataSnapshot.getValue(SASUser.class);
+                listSasUser.add(currentUser);
+                if(listSasUser.size() > 0){
+                    adapter = new ArrayAdapter<SASUser>(MembersActivity.this, android.R.layout.simple_list_item_1, listSasUser);
+                    listViewSasUser.setAdapter(adapter);
                 }
-
-                adapter.notifyDataSetChanged();
             }
 
             @Override

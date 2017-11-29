@@ -46,23 +46,23 @@ public class LogInActivity extends AppCompatActivity {
         final String email = emailText.getText().toString();
         final String password = passwordText.getText().toString();
 
-        if(user.isEmailVerified()){ //se l'email è verificata procedo con la login
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task){
-                    if(task.isSuccessful()){
-                        Toast.makeText( LogInActivity.this , "Login effettuato", Toast.LENGTH_LONG).show();
-                        Intent intent= new Intent(LogInActivity.this , MembersActivity.class);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task){
+                if(task.isSuccessful()){
+                    user = mAuth.getCurrentUser();
+                    if(user.isEmailVerified()) {
+                        Toast.makeText(LogInActivity.this, "Login effettuato", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LogInActivity.this, MembersActivity.class);
                         startActivity(intent);
                         finish();
                     }else{
-                        Toast.makeText(LogInActivity.this, "L'utenza non esiste", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LogInActivity.this, "Verifica la mail", Toast.LENGTH_LONG).show();
                     }
+                }else{
+                    Toast.makeText(LogInActivity.this, "L'utenza non esiste", Toast.LENGTH_LONG).show();
                 }
-            });
-        }else{
-            Toast.makeText(this, "Verifica la mail", Toast.LENGTH_LONG).show();
-        }
-
+            }
+        });
     }
 }

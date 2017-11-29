@@ -14,6 +14,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import manager.IoCrypto;
 import manager.MyFirebaseManager;
 
 public class SignInActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class SignInActivity extends AppCompatActivity {
     private TextView mailText;
     private MyFirebaseManager FBMan;
     private FirebaseUser firebaseUser;
+    private IoCrypto enigma;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class SignInActivity extends AppCompatActivity {
         nickName = (TextView) findViewById(R.id.UserText);
         passwordText = (TextView) findViewById(R.id.PasswordText);
         mailText = (TextView) findViewById(R.id.MailText);
+
+        enigma = new IoCrypto();
 
     }
 
@@ -58,13 +62,15 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task){
                 if(task.isSuccessful()){//verifico se l'iscrizione è andata a buon fine, scrivo i dati sul DB e comunico all'utente la creazione della sua utenza
+                    //Comunico la creazione dell'utenza
                     Toast.makeText( SignInActivity.this, "Utenza creata", Toast.LENGTH_SHORT).show();
+                    //salvo le informazioni necessarie
                     firebaseUser = mAuth.getCurrentUser();
                     FBMan.insertUserCredential(firebaseUser, nick, email);
-                    firebaseUser.sendEmailVerification();//invio email di verifica
+                    //invio email di verifica
+                    firebaseUser.sendEmailVerification();
+                    //parte l'activity successiva
                     Intent intent = new Intent(SignInActivity.this , MainActivity.class);
-                    intent.putExtra("myMail", email);
-                    intent.putExtra("myPass", password);
                     startActivity(intent);
                     finish();
                 }else{

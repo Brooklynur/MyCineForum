@@ -11,10 +11,11 @@ public class SASUser {
     private String password;
     private String id;
 
-    public SASUser(String nick, String mail, String password) {
+    public SASUser(String nick, String mail, String password, String id) {
         this.nick = nick;
         this.mail = mail;
         this.password = password;
+        this.id = id;
     }
 
     public SASUser() {

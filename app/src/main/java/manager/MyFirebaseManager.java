@@ -27,8 +27,9 @@ public class MyFirebaseManager {
 
 
     public void insertUserCredential(FirebaseUser user , String nick , String mail){
-        mDbReference.child("user").child(user.getUid()).child("nick").setValue(nick); //Si deve ricostruire il path corretto per arrivare all'oggetto voluto per poi settarne il valore
-        mDbReference.child("user").child(user.getUid()).child("mail").setValue(mail);
+        mDbReference.child("user").child(nick).child("nick").setValue(nick); //Si deve ricostruire il path corretto per arrivare all'oggetto voluto per poi settarne il valore
+        mDbReference.child("user").child(nick).child("mail").setValue(mail);
+        mDbReference.child("user").child(nick).child("id").setValue(user.getUid());
     }
 
 
