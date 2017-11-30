@@ -1,8 +1,13 @@
 package manager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.lore_depa.mycineforum.MainActivity;
+import com.example.lore_depa.mycineforum.R;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +29,6 @@ public class MyFirebaseManager {
     public MyFirebaseManager() {
         mDbReference = FirebaseDatabase.getInstance().getReference();
     }
-
 
     public void insertUserCredential(FirebaseUser user , String nick , String mail){
         mDbReference.child("user").child(nick).child("nick").setValue(nick); //Si deve ricostruire il path corretto per arrivare all'oggetto voluto per poi settarne il valore

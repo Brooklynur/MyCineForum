@@ -1,6 +1,8 @@
 package com.example.lore_depa.mycineforum;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import manager.IoCrypto;
 import manager.MyFirebaseManager;
@@ -42,7 +52,6 @@ public class SignInActivity extends AppCompatActivity {
         mailText = (TextView) findViewById(R.id.MailText);
 
         enigma = new IoCrypto();
-
     }
 
 
@@ -67,6 +76,7 @@ public class SignInActivity extends AppCompatActivity {
                     //salvo le informazioni necessarie
                     firebaseUser = mAuth.getCurrentUser();
                     FBMan.insertUserCredential(firebaseUser, nick, email);
+                    salvaCredenziali(email, password);
                     //invio email di verifica
                     firebaseUser.sendEmailVerification();
                     //parte l'activity successiva
@@ -86,4 +96,25 @@ public class SignInActivity extends AppCompatActivity {
         finish();
     }
 
+    public void salvaCredenziali(String email, String password){
+        try {
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.user), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("email", enigma.encrypt(email));
+            editor.putString("password", enigma.encrypt(password));
+            editor.apply();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+    }
 }
